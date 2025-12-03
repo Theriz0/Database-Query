@@ -56,3 +56,24 @@ sudo systemctl enable mongod
 # 6. Confirm installation
 mongo --version
 ```
+# 1. Download mongosh 5.0 for Debian
+wget [https://downloads.mongodb.com/compass/mongosh-5.0.0-linux-x64.deb](https://downloads.mongodb.com/compass/mongosh-5.0.0-linux-x64.deb) -O mongosh.deb
+
+# 2. Install using APT
+sudo apt install ./mongosh.deb
+
+# 3. Verify
+mongosh --version
+
+# How to use mongosh?
+The project's code consists of the mongosh aggregation statements.
+
+```bash
+mongosh
+
+use('univDB')
+```
+
+The University Database model (8th Edition) is copyrighted by Young Ryu & The University of Texas at Dallas (UTD).
+
+This repository includes only my aggregation pipeline code and does not contain the dataset, assignment materials, or the full database schema model. Redistribution of the dataset or assignment materials is strictly prohibited.
