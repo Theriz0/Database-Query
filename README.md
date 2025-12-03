@@ -1,56 +1,58 @@
 # Database-Query
 
-This project implements complex MongoDB aggregation pipeline queries using the University Database (univDB) model.
-All work was completed using mongosh 5.0 on a Debian-based Linux system, with multi-collection joins, nested document handling, and SQL-to-NoSQL query translation.
+This project implements **complex MongoDB aggregation pipeline queries** using a simulated **University Database (univDB)** model. The core task involved translating multi-collection relational queries into robust NoSQL aggregation pipelines.
+---
 
-For this project, the relational structure was mapped into MongoDB collections using embedded documents.
-My task was to write mongosh aggregation pipelines that replicate relational queries across multiple collections.
-The queries involve:
+## Project Goals & Techniques
 
-$lookup joins (2–4 collections)
+The primary objective was to master advanced MongoDB aggregation by replicating sophisticated relational queries against a dataset where the original relational structure was mapped using **embedded documents**.
 
-$match filtering
+| Aggregation Stage | Description |
+| :--- | :--- |
+| **`$lookup` Joins** | Implementing joins across **2 to 4 collections** to link data in a multi-collection environment. |
+| **`$match` Filtering** | Applying efficient criteria to filter documents at various stages of the pipeline. |
+| **`$project` Reshaping** | Creating, renaming, and omitting fields to reshape the output documents, including **nested document projections**. |
+| **`$unwind` Expansion** | Deconstructing array fields to process elements individually. |
+| **`$group` Distinct/Aggregation** | Grouping documents to find distinct results and perform aggregate calculations. |
 
-$project field reshaping
+---
 
-$unwind array expansion
+## Development Environment
 
-$group for distinct results
+All work was completed in a **Debian-based Linux** environment using the official MongoDB 5.0 server and shell.
 
-Nested document projections
+| Component | Version/Specification |
+| :--- | :--- |
+| **Operating System** | Debian-based Linux (Debian / Ubuntu / Kali / Pop!\_OS / Mint) |
+| **MongoDB Server** | 5.0 Community Edition |
+| **MongoDB Shell** | `mongosh` 5.0 |
+| **Tools Used** | Linux Terminal, APT Package Manager |
 
-Each question required producing only the mongosh statements, not the execution results.
+---
 
-All queries were executed in Linux using the mongosh shell.
+## MongoDB 5.0 Installation Guide (Debian/Ubuntu)
 
-Development Environment
+The following steps were used to set up the required environment:
 
-OS: Debian-based Linux (Debian / Ubuntu / Kali / Pop!_OS / Mint)
+### 1. Install MongoDB Server 5.0
 
-MongoDB Server: 5.0 Community Edition
+```bash
+# 1. Import the GPG key
+wget -qO - [https://www.mongodb.org/static/pgp/server-5.0.asc](https://www.mongodb.org/static/pgp/server-5.0.asc) | sudo apt-key add -
 
-MongoDB Shell: mongosh 5.0
+# 2. Add the MongoDB 5.0 APT repository
+echo "deb [ arch=amd64 ] [https://repo.mongodb.org/apt/debian](https://repo.mongodb.org/apt/debian) bullseye/mongodb-org/5.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 
-Tools: Linux terminal, APT package manager, MongoDB utilities
-
-
-MongoDB 5.0 must be installed from MongoDB’s official APT repository.
-
-1. Import the GPG key
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-
-2. Add the MongoDB 5.0 APT repository
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/debian bullseye/mongodb-org/5.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
-
-3. Update package lists
+# 3. Update package lists
 sudo apt update
 
-4. Install MongoDB 5.0
+# 4. Install MongoDB 5.0
 sudo apt install -y mongodb-org
 
-5. Start + enable MongoDB
+# 5. Start and Enable MongoDB
 sudo systemctl start mongod
 sudo systemctl enable mongod
 
-6. Confirm installation
+# 6. Confirm installation
 mongo --version
+```
