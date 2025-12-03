@@ -1,11 +1,9 @@
 //////////////////////////////////
-// University Database (8th ed) //
+//       University Database    //
 //////////////////////////////////
 
 // Exact copy of the relational database structure, except that embedded documents (e.g., FacName) are used.
 // - No change in the database schema: I.e., the relational DB schema is implemented as it is.
-
-use('univDB') // MongoDB for VS Code requires use('univDB'), instead of use univDB
 
 // Faculty collection
 
