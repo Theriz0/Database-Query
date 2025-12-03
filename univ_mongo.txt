@@ -1,0 +1,788 @@
+//////////////////////////////////
+// University Database (8th ed) //
+//////////////////////////////////
+
+// Exact copy of the relational database structure, except that embedded documents (e.g., FacName) are used.
+// - No change in the database schema: I.e., the relational DB schema is implemented as it is.
+
+use('univDB') // MongoDB for VS Code requires use('univDB'), instead of use univDB
+
+// Faculty collection
+
+db.createCollection("Faculty")
+db.Faculty.insertMany([
+  {
+    _id : "543-21-0987", // FacNo
+    FacName : {
+       FacFirstName : "VICTORIA",
+       FacLastName : "EMMANUEL",
+    },
+    FacAddress : {
+       FacCity : "BOTHELL",
+       FacState : "WA",
+       FacZipCode : "98011-2242",
+    },
+    FacDept : "MS",
+    FacRank : "PROF",
+    FacSalary : 120000, 
+    FacSupervisor : null,
+    FacHireDate : ISODate("2008-04-15")
+  },
+  {
+    _id : "765-43-2109", // FacNo
+    FacName : {
+       FacFirstName : "NICKI",
+       FacLastName : "MACON",
+    },
+    FacAddress : {
+       FacCity : "BELLEVUE",
+       FacState : "WA",
+       FacZipCode : "98015-9945",
+    },
+    FacDept : "FIN",
+    FacRank : "PROF",
+    FacSalary : 65000, 
+    FacSupervisor : null,
+    FacHireDate : ISODate("2009-04-11")
+  },
+  {
+    _id : "654-32-1098", // FacNo
+    FacName : {
+       FacFirstName : "LEONARD",
+       FacLastName : "FIBON",
+    },
+    FacAddress : {
+       FacCity : "SEATTLE",
+       FacState : "WA",
+       FacZipCode : "98121-0094",
+    },
+    FacDept : "MS",
+    FacRank : "ASSC",
+    FacSalary : 70000,
+    FacSupervisor : "543-21-0987",
+    FacHireDate : ISODate("2006-05-01")
+  },
+  {
+    _id : "098-76-5432", // FacNo
+    FacName : {
+       FacFirstName : "LEONARD",
+       FacLastName : "VINCE",
+    },
+    FacAddress : {
+       FacCity : "SEATTLE",
+       FacState : "WA",
+       FacZipCode : "98111-9921",
+    },
+    FacDept : "MS",
+    FacRank : "ASST",
+    FacSalary : 35000, 
+    FacSupervisor : "654-32-1098",
+    FacHireDate : ISODate("2007-04-10")
+  },
+  {
+    _id : "876-54-3210", // FacNo
+    FacName : {
+       FacFirstName : "CRISTOPHER",
+       FacLastName : "COLAN",
+    },
+    FacAddress : {
+       FacCity : "SEATTLE",
+       FacState : "WA",
+       FacZipCode : "98114-1332",
+    },
+    FacDept : "MS",
+    FacRank : "ASST",
+    FacSalary : 40000, 
+    FacSupervisor : "654-32-1098",
+    FacHireDate : ISODate("2011-03-01")
+  },
+  {
+    _id : "987-65-4321", // FacNo
+    FacName : {
+       FacFirstName : "JULIA",
+       FacLastName : "MILLS",
+    },
+    FacAddress : {
+       FacCity : "SEATTLE",
+       FacState : "WA",
+       FacZipCode : "98114-9954",
+    },
+    FacDept : "FIN",
+    FacRank : "ASSC",
+    FacSalary : 75000, 
+    FacSupervisor : "765-43-2109",
+    FacHireDate : ISODate("2012-03-15")
+  }
+])
+
+// Course collection
+
+db.createCollection("Course")
+db.Course.insertMany([
+  {
+    _id : "FIN300", // CourseNo
+    CrsDesc : "FUNDAMENTALS OF FINANCE",
+    CrsUnits : 4
+  },
+  {
+    _id : "FIN450", // CourseNo
+    CrsDesc : "PRINCIPLES OF INVESTMENTS",
+    CrsUnits : 4
+  },
+  {
+    _id : "FIN480", // CourseNo
+    CrsDesc : "CORPORATE FINANCE",
+    CrsUnits : 4
+  },
+  {
+    _id : "IS320", // CourseNo
+    CrsDesc : "FUNDAMENTALS OF BUSINESS PROGRAMMING",
+    CrsUnits : 4
+  },
+  {
+    _id : "IS460", // CourseNo
+    CrsDesc : "SYSTEMS ANALYSIS",
+    CrsUnits : 4
+  },
+  {
+    _id : "IS470", // CourseNo
+    CrsDesc : "BUSINESS DATA COMMUNICATIONS",
+    CrsUnits : 4
+  },
+  {
+    _id : "IS480", // CourseNo
+    CrsDesc : "FUNDAMENTALS OF DATABASE MANAGEMENT",
+    CrsUnits : 4
+  }
+])
+
+// Student collection
+
+db.createCollection("Student")
+db.Student.insertMany([
+  {
+    _id : "123-45-6789", // StdNo
+    StdName : {
+       StdFirstName : "HOMER",
+       StdLastName : "WELLS",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98121-1111",
+    },
+    StdMajor : "IS",
+    StdClass : "FR",
+    StdGPA : 3.00
+  },
+  {
+    _id : "124-56-7890", // StdNo
+    StdName : {
+       StdFirstName : "BOB",
+       StdLastName : "NORBERT",
+    },
+    StdAddress : {
+       StdCity : "BOTHELL",
+       StdState : "WA",
+       StdZip : "98011-2121",
+    },
+    StdMajor : "FIN",
+    StdClass : "JR",
+    StdGPA : 2.70
+  },
+  {
+    _id : "234-56-7890", // StdNo
+    StdName : {
+       StdFirstName : "CANDY",
+       StdLastName : "KENDALL",
+    },
+    StdAddress : {
+       StdCity : "TACOMA",
+       StdState : "WA",
+       StdZip : "99042-3321",
+    },
+    StdMajor : "ACCT",
+    StdClass : "JR",
+    StdGPA : 3.50
+  },
+  {
+    _id : "345-67-8901", // StdNo
+    StdName : {
+       StdFirstName : "WALLY",
+       StdLastName : "KENDALL",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98123-1141",
+    },
+    StdMajor : "IS",
+    StdClass : "SR",
+    StdGPA : 2.80
+  },
+  {
+    _id : "456-78-9012", // StdNo
+    StdName : {
+       StdFirstName : "JOE",
+       StdLastName : "ESTRADA",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98121-2333",
+    },
+    StdMajor : "FIN",
+    StdClass : "SR",
+    StdGPA : 3.20
+  },
+  {
+    _id : "567-89-0123", // StdNo
+    StdName : {
+       StdFirstName : "MARIAH",
+       StdLastName : "DODGE",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98114-0021",
+    },
+    StdMajor : "IS",
+    StdClass : "JR",
+    StdGPA : 3.60
+  },
+  {
+    _id : "678-90-1234", // StdNo
+    StdName : {
+       StdFirstName : "TESS",
+       StdLastName : "DODGE",
+    },
+    StdAddress : {
+       StdCity : "REDMOND",
+       StdState : "WA",
+       StdZip : "98116-2344",
+    },
+    StdMajor : "ACCT",
+    StdClass : "SO",
+    StdGPA : 3.30
+  },
+  {
+    _id : "789-01-2345", // StdNo
+    StdName : {
+       StdFirstName : "ROBERTO",
+       StdLastName : "MORALES",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98121-2212",
+    },
+    StdMajor : "FIN",
+    StdClass : "JR",
+    StdGPA : 2.50
+  },
+  {
+    _id : "876-54-3210", // StdNo
+    StdName : {
+       StdFirstName : "CRISTOPHER",
+       StdLastName : "COLAN",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98114-1332",
+    },
+    StdMajor : "IS",
+    StdClass : "SR",
+    StdGPA : 4.00
+  },
+  {
+    _id : "890-12-3456", // StdNo
+    StdName : {
+       StdFirstName : "LUKE",
+       StdLastName : "BRAZZI",
+    },
+    StdAddress : {
+       StdCity : "SEATTLE",
+       StdState : "WA",
+       StdZip : "98116-0021",
+    },
+    StdMajor : "IS",
+    StdClass : "SR",
+    StdGPA : 2.20
+  },
+  {
+    _id : "901-23-4567", // StdNo
+    StdName : {
+       StdFirstName : "WILLIAM",
+       StdLastName : "PILGRIM",
+    },
+    StdAddress : {
+       StdCity : "BOTHELL",
+       StdState : "WA",
+       StdZip : "98113-1885",
+    },
+    StdMajor : "IS",
+    StdClass : "SO",
+    StdGPA : 3.80
+  }
+])
+
+// Offering collection
+
+db.createCollection("Offering")
+db.Offering.insertMany([
+  {
+    _id : 1111, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "SUMMER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM302",
+       OffTime : "10:30 AM",
+       OffDays : "MW"
+    },
+    FacNo : null
+  },
+  {
+    _id : 1234, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "FALL",
+       OffYear : 2019
+    },
+    LocTime : {
+       OffLocation : "BLM302",
+       OffTime : "10:30 AM",
+       OffDays : "MW"
+    },
+    FacNo : "098-76-5432"
+  },
+  {
+    _id : 2222, // OfferNo
+    CourseNo : "IS460",
+    TermYear : {
+       OffTerm : "SUMMER",
+       OffYear : 2019
+    },
+    LocTime : {
+       OffLocation : "BLM412",
+       OffTime : "1:30 PM",
+       OffDays : "TTH"
+    },
+    FacNo : null
+  },
+  {
+    _id : 3333, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "SPRING",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM214",
+       OffTime : "8:30 AM",
+       OffDays : "MW"
+    },
+    FacNo : "098-76-5432"
+  },
+  {
+    _id : 4321, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "FALL",
+       OffYear : 2019
+    },
+    LocTime : {
+       OffLocation : "BLM214",
+       OffTime : "3:30 PM",
+       OffDays : "TTH"
+    },
+    FacNo : "098-76-5432"
+  },
+  {
+    _id : 4444, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "WINTER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM302",
+       OffTime : "3:30 PM",
+       OffDays : "TTH"
+    },
+    FacNo : "543-21-0987"
+  },
+  {
+    _id : 5555, // OfferNo
+    CourseNo : "FIN300",
+    TermYear : {
+       OffTerm : "WINTER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM207",
+       OffTime : "8:30 AM",
+       OffDays : "MW"
+    },
+    FacNo : "765-43-2109"
+  },
+  {
+    _id : 5678, // OfferNo
+    CourseNo : "IS480",
+    TermYear : {
+       OffTerm : "WINTER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM302",
+       OffTime : "10:30 AM",
+       OffDays : "MW"
+    },
+    FacNo : "987-65-4321"
+  },
+  {
+    _id : 5679, // OfferNo
+    CourseNo : "IS480",
+    TermYear : {
+       OffTerm : "SPRING",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM412",
+       OffTime : "3:30 PM",
+       OffDays : "TTH"
+    },
+    FacNo : "876-54-3210"
+  },
+  {
+    _id : 6666, // OfferNo
+    CourseNo : "FIN450",
+    TermYear : {
+       OffTerm : "WINTER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM212",
+       OffTime : "10:30 AM",
+       OffDays : "TTH"
+    },
+    FacNo : "987-65-4321"
+  },
+  {
+    _id : 7777, // OfferNo
+    CourseNo : "FIN480",
+    TermYear : {
+       OffTerm : "SPRING",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM305",
+       OffTime : "1:30 PM",
+       OffDays : "MW"
+    },
+    FacNo : "765-43-2109"
+  },
+  {
+    _id : 8888, // OfferNo
+    CourseNo : "IS320",
+    TermYear : {
+       OffTerm : "SUMMER",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM405",
+       OffTime : "1:30 PM",
+       OffDays : "MW"
+    },
+    FacNo : "654-32-1098"
+  },
+  {
+    _id : 9876, // OfferNo
+    CourseNo : "IS460",
+    TermYear : {
+       OffTerm : "SPRING",
+       OffYear : 2020
+    },
+    LocTime : {
+       OffLocation : "BLM307",
+       OffTime : "1:30 AM",
+       OffDays : "TTH"
+    },
+    FacNo : "654-32-1098"
+  }
+])
+
+// Enrollment collection
+
+db.createCollection("Enrollment")
+db.Enrollment.insertMany([
+  {
+    _id : {
+       OfferNo : 1111,
+       StdNo : "901-23-4567"
+    },
+    EnrGrade : 0.00
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "123-45-6789"
+    },
+    EnrGrade : 3.30
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "234-56-7890"
+    },
+    EnrGrade : 3.50
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "345-67-8901"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "456-78-9012"
+    },
+    EnrGrade : 3.10
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "567-89-0123"
+    },
+    EnrGrade : 3.80
+  },
+  {
+    _id : {
+       OfferNo : 1234,
+       StdNo : "678-90-1234"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "123-45-6789"
+    },
+    EnrGrade : 3.50
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "124-56-7890"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "789-01-2345"
+    },
+    EnrGrade : 3.50
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "876-54-3210"
+    },
+    EnrGrade : 3.10
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "890-12-3456"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 4321,
+       StdNo : "901-23-4567"
+    },
+    EnrGrade : 3.10
+  },
+  {
+    _id : {
+       OfferNo : 5555,
+       StdNo : "123-45-6789"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 5555,
+       StdNo : "124-56-7890"
+    },
+    EnrGrade : 2.70
+  },
+  {
+    _id : {
+       OfferNo : 5678,
+       StdNo : "123-45-6789"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 5678,
+       StdNo : "234-56-7890"
+    },
+    EnrGrade : 2.80
+  },
+  {
+    _id : {
+       OfferNo : 5678,
+       StdNo : "345-67-8901"
+    },
+    EnrGrade : 3.30
+  },
+  {
+    _id : {
+       OfferNo : 5678,
+       StdNo : "456-78-9012"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 5678,
+       StdNo : "567-89-0123"
+    },
+    EnrGrade : 2.60
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "123-45-6789"
+    },
+    EnrGrade : 2.00
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "124-56-7890"
+    },
+    EnrGrade : 3.70
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "678-90-1234"
+    },
+    EnrGrade : 3.30
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "789-01-2345"
+    },
+    EnrGrade : 3.80
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "890-12-3456"
+    },
+    EnrGrade : 2.90
+  },
+  {
+    _id : {
+       OfferNo : 5679,
+       StdNo : "901-23-4567"
+    },
+    EnrGrade : 3.10
+  },
+  {
+    _id : {
+       OfferNo : 6666,
+       StdNo : "234-56-7890"
+    },
+    EnrGrade : 3.10
+  },
+  {
+    _id : {
+       OfferNo : 6666,
+       StdNo : "567-89-0123"
+    },
+    EnrGrade : 3.60
+  },
+  {
+    _id : {
+       OfferNo : 7777,
+       StdNo : "876-54-3210"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 7777,
+       StdNo : "890-12-3456"
+    },
+    EnrGrade : 3.70
+  },
+  {
+    _id : {
+       OfferNo : 7777,
+       StdNo : "901-23-4567"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "124-56-7890"
+    },
+    EnrGrade : 3.50
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "234-56-7890"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "345-67-8901"
+    },
+    EnrGrade : 3.20
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "456-78-9012"
+    },
+    EnrGrade : 3.40
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "567-89-0123"
+    },
+    EnrGrade : 2.60
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "678-90-1234"
+    },
+    EnrGrade : 3.30
+  },
+  {
+    _id : {
+       OfferNo : 9876,
+       StdNo : "901-23-4567"
+    },
+    EnrGrade : 4.00
+  }
+])
