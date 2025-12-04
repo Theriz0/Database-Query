@@ -57,6 +57,8 @@ sudo systemctl enable mongod
 mongo --version
 ```
 # 1. Download mongosh 5.0 for Debian
+
+```bash
 wget [https://downloads.mongodb.com/compass/mongosh-5.0.0-linux-x64.deb](https://downloads.mongodb.com/compass/mongosh-5.0.0-linux-x64.deb) -O mongosh.deb
 
 # 2. Install using APT
@@ -64,6 +66,7 @@ sudo apt install ./mongosh.deb
 
 # 3. Verify
 mongosh --version
+```
 
 # How to use mongosh?
 The project's code consists of the mongosh aggregation statements.
